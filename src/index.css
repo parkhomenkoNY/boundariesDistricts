@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Inter&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
 html,
 body,
 #root {
@@ -10,6 +11,7 @@ body,
   flex-direction: column;
 }
 .header {
+  font-family: "IBM Plex Sans", sans-serif;
   width: 1250px;
   text-align: center;
 }

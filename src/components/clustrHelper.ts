@@ -14,7 +14,7 @@ const mapPoligonSPB = featuresSPB.featuresSPB;
 
 // названия районов ЦАО ЗАО ... МОСКВА
 export const getDistrictName = () => {
-  return mapPoligon.map((item) => item.properties.NAME);
+  return mapPoligon.map((item) => item.properties.ABBREV);
 };
 
 // название районов Центральный Петроградский ... ПИТЕР
