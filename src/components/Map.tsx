@@ -24,7 +24,8 @@ import {
 } from "./clustrHelper.ts";
 import { Box, Typography } from "@mui/material";
 
-import { moscow } from "./imagesHelper.ts";
+import { moscow, parksIcon } from "./imagesHelper.ts";
+
 
 // --------------------------------INTERFACE-----------------------------------------------------
 // --------------------------------CONSTANTS-----------------------------------------------------
@@ -32,7 +33,7 @@ const IMAGE_PATH = "../../img/gerbs/";
 window.map = null;
 
 const LOCATIONMSK: YMapLocationRequest = {
-  center: [37.494576, 55.571519],
+  center: [37.621184, 55.7536],
   zoom: 13,
 };
 
@@ -52,7 +53,9 @@ const cityPoligons = (city: string) => {
   if (city === "spb") return mapPoligonSPB;
   return mapPoligonMSK;
 };
+
 // --------------------------------COMPONENT-----------------------------------------------------
+
 export default function Map() {
   const [location, setLocation] = useState(LOCATIONMSK);
   // тут зум должен тоже меняться для каждого ГО и цвет полигона соответственно
@@ -76,12 +79,12 @@ export default function Map() {
     }
   }, []);
 
-  const getPolygonOpacity = (item) => {
+  const getPolygonOpacity = () => {
     return Math.max(1 - (zoomLevel - 10) * 0.2, 0);
   };
   // тут по значению зума меняется цвет заливки полигона
-  const getPolygonColor = (item) => {
-    const opacity = getPolygonOpacity(item);
+  const getPolygonColor = (item: string) => {
+    const opacity = getPolygonOpacity();
     const [r, g, b] = item.match(/\d+/g);
     return `rgba(${r}, ${g}, ${b}, ${opacity})`;
   };
@@ -98,7 +101,6 @@ export default function Map() {
         >
           {feature.properties.name}
         </div>
-        {/* белки */}
         <div>
           <img
             alt="img"
@@ -109,8 +111,8 @@ export default function Map() {
               // border: '1px solid #ffffff',
             }}
             src={
-              feature.properties.name === "Новомосковский" ||
-              feature.properties.name === "Троицкий"
+              feature.properties.name === "НАО" ||
+              feature.properties.name === "ТАО"
                 ? `${moscow}`
                 : `${IMAGE_PATH}${feature.properties.name}.png`
             }
@@ -136,7 +138,7 @@ export default function Map() {
               border: "1px solid #ffffff",
             }}
             // src={${IMAGE_PATH}/image${feature.id}.png}
-            src={moscow}
+            src={parksIcon}
           />
         </div>
       </div>
@@ -211,7 +213,6 @@ export default function Map() {
       </Box>
     </YMapMarker>
   );
-
   return (
     <>
       <div className="container">
@@ -229,26 +230,33 @@ export default function Map() {
             <YMapGeolocationControl />
           </YMapControls> */}
           <YMapListener onActionEnd={onZoomChange} />
+          {/* метки районов Москвы - работает */}
           <YMapClusterer
             marker={marker}
             cluster={cluster}
             method={gridSizedMethod}
             features={points}
           />
-          <YMapClusterer
+          {/* <YMapClusterer
             marker={mchsBuildings}
             cluster={cluster}
             method={gridSizedMethod}
             features={buildingPoints}
-          />
-
-          <YMapClusterer
+          /> */}
+    
+          {/* метки районов Питера - работает */}
+          {/* <YMapClusterer
             marker={markerSPB}
             cluster={cluster}
             method={gridSizedMethod}
             features={pointsSPB}
-          />
-
+          /> */}
+          {/* <Poligons
+            city={city}
+            setLocation={setLocation}
+            zoomLevel={zoomLevel}
+          /> */}
+        
           {/* тут должен быть cityPoligons -  а это необходимые полигоны в зависимости от города */}
           {cityPoligons(city).map((poligon, index) =>
             // тут обработка 2х условий если это Мультиполигон или просто Полигон
@@ -293,4 +301,10 @@ export default function Map() {
       </div>
     </>
   );
+}
+
+{
+  /* <Poligons city={city} setLocation={setLocation} />
+<ClusterBuilding city={city} />
+<ClusterCenter city={city} /> */
 }

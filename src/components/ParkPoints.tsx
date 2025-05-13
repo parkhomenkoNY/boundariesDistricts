@@ -1,8 +1,10 @@
 import { YMapClusterer } from "@yandex/ymaps3-clusterer";
-import { YMapMarker } from "@yandex/ymaps3-types";
+
 import React, { useMemo } from "react";
 import { moscow } from "./imagesHelper";
 import { ExpandedFeature, getparksPoints } from "./clustrHelper";
+import { YMapMarker } from "ymap3-components";
+import { cluster } from "./Map";
 
 export default function ParkPoints() {
   const parkPointsData = useMemo(() => getparksPoints(), []);

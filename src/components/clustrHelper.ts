@@ -4,6 +4,8 @@ import features from "../json/MskGeoJson.json";
 
 import featuresSPB from "../json/SpbGeoJson.json";
 
+import parksData from "../json/park.json";
+
 export type ExpandedFeature = Feature & { id: string };
 // ----------------------------------------------------------------------------------------------
 
@@ -25,6 +27,11 @@ export const getDistrictNameSPB = () => {
 // тут координаты центров го  ... МОСКВА
 export const getCenterOfDistrict = () => {
   return mapPoligon.map((item) => item.properties.CENTER);
+};
+
+// тут названия парков
+export const getparksPoints = () => {
+  return parksData.parks.map((item) => item.name);
 };
 
 // тут координаты центров го  ...  ПИТЕР
